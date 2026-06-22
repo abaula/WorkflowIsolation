@@ -36,10 +36,10 @@ public class SequentialActor : IDisposable, IAsyncDisposable
     /// Non-blocking method for writing a message to the actor's buffer.
     /// Can be safely called concurrently from any other threads.
     /// </summary>
-    public async ValueTask SendAsync(string message)
+    public ValueTask SendAsync(string message)
     {
         ObjectDisposedException.ThrowIf(_isDisposed, this);
-        await _buffer.Writer.WriteAsync(message);
+        return _buffer.Writer.WriteAsync(message);
     }
 
     /// <summary>
